@@ -1,7 +1,20 @@
 import bcrypt from 'bcrypt';
 import {body, validationResult} from 'express-validator';
 
-import { insertUser } from "../models/user.model.js";
+import { insertUser, findUserByEmail } from "../models/user.model.js";
+
+async function userAlreadyExists(email){
+    try{
+        const user = await findUserByEmail(email);
+        if(user.length == 0)
+            return false;
+        else
+            return true;
+    }
+    catch(err){
+        throw err;
+    }
+}
 
 export const userValidation = [
     body('email').isEmail().withMessage("invalid email address"),
@@ -16,9 +29,14 @@ export async function createUser(req, res){
         res.status(400).send(errors.array());
         return;
     }
+
     const {firstName, lastName, email, password} = req.body;
     const saltRounds = 12;
     try{
+        if(await userAlreadyExists(email)){
+            res.status(400).send(`${email} is already in use`);
+            return;
+        }
         const salt = await bcrypt.genSalt(saltRounds);
         const hash = await bcrypt.hash(password,salt);
         const result =await insertUser(email, firstName, lastName, salt, hash);
