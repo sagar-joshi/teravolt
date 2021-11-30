@@ -1,17 +1,31 @@
 import bcrypt from 'bcrypt';
 import {body, validationResult} from 'express-validator';
 
-import { insertUser, findUserByEmail } from "../models/user.model.js";
+import { insertUser, getUserByEmail } from "../models/user.model.js";
 
-async function userAlreadyExists(email){
+export async function getUser(email){
     try{
-        const user = await findUserByEmail(email);
-        if(user.length == 0)
-            return false;
+        const user = await getUserByEmail(email);
+        if(user.length == 1)
+            return user[0];
         else
-            return true;
+            return null;
     }
     catch(err){
+        throw err;
+    }
+}
+
+export async function matchPassword(email, password){
+    try{
+        const user  = await getUser(email);
+        const storedhash = user.hash;
+        const match =await bcrypt.compare(password, storedhash);
+        if(match)
+            return true;
+        else
+            return false;
+    }catch(err){
         throw err;
     }
 }
@@ -33,13 +47,13 @@ export async function createUser(req, res){
     const {firstName, lastName, email, password} = req.body;
     const saltRounds = 12;
     try{
-        if(await userAlreadyExists(email)){
+        if(await getUser(email)){
             res.status(400).send(`${email} is already in use`);
             return;
         }
         const salt = await bcrypt.genSalt(saltRounds);
         const hash = await bcrypt.hash(password,salt);
-        const result =await insertUser(email, firstName, lastName, salt, hash);
+        const result =await insertUser(email, firstName, lastName, hash);
         res.status(201).send(result);
     }
     catch(err){
