@@ -6,6 +6,7 @@ import './utils/auth.js';
 
 import userRoutes from './routes/user.routes.js';
 import groupRoutes from './routes/group.routes.js';
+import messageRoutes from './routes/message.routes.js';
 
 dotenv.config();
 const app = express();
@@ -17,6 +18,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use('/user', userRoutes);
 app.use('/group', groupRoutes);
+app.use('/message', messageRoutes);
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`)
