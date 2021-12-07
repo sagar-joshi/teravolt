@@ -1,0 +1,12 @@
+.msgSelf{
+    text-align: end;
+}
+
+.msgInnerDiv{
+    display: inline-block;
+    text-align: initial;
+}
+
+.msgSender{
+    font-size: small;
+}
