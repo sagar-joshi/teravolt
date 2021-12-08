@@ -38,3 +38,17 @@ export async function insertMember(groupId, userId){
         throw err;
     }
 }
+
+export async function getGroup(groupId){
+    const query = "SELECT * from `table_groups` where `id`=?";
+    const values = [groupId];
+    try{
+        const mysqlConnection = await mysql.createConnection(dbInfo);
+        const [rows, fields] = await mysqlConnection.execute(query, values);
+        mysqlConnection.end();
+        return rows;
+    }
+    catch(err){
+        throw err;
+    }
+}

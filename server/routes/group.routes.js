@@ -7,5 +7,6 @@ const router = new Router();
 
 router.post('/create', ensureAuthenticated, GroupController.createGroup);
 router.post('/addMember', ensureAuthenticated, GroupController.addMember);
+router.post('/getByGroupId', ensureAuthenticated, GroupController.getGroupByGroupId)
 
 export default router;
