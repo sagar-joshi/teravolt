@@ -60,3 +60,7 @@ export async function createUser(req, res){
         res.status(500).send(err);
     }
 }
+
+export async function getAuthenticatedUser(req, res){
+    res.status(200).send(req.user);
+}

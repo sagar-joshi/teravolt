@@ -9,5 +9,6 @@ const router = new Router();
 router.post('/signup', UserController.userValidation, UserController.createUser);
 router.post('/login', passport.authenticate('local'), (req, res) => {res.status(200).send()});
 router.post('/logout', auth.logout);
+router.get('/getAuthenticatedUser', auth.ensureAuthenticated, UserController.getAuthenticatedUser);
 
 export default router;
