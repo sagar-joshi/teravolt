@@ -17,7 +17,7 @@ export async function insertMessage(text, sender_id, receiver_id){
 }
 
 export async function getMessages(groupId){
-    const query = "SELECT `sender_id`, `receiver_id`, `firstName`, `lastName`, `text` from messages join users ON `sender_id` = users.`id` WHERE `receiver_id` = ?";
+    const query = "SELECT messages.`id`, `sender_id`, `receiver_id`, `firstName`, `lastName`, `text` from messages join users ON `sender_id` = users.`id` WHERE `receiver_id` = ? order by messages.`id`";
     const values = [groupId];
     try{
         const mysqlConnection = await mysql.createConnection(dbInfo);
