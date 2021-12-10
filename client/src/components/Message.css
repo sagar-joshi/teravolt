@@ -5,6 +5,7 @@
 .msgInnerDiv{
     display: inline-block;
     text-align: initial;
+    margin: 1rem;
 }
 
 .msgSender{
