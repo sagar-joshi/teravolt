@@ -52,3 +52,17 @@ export async function getGroup(groupId){
         throw err;
     }
 }
+
+export async function getGroupsByUserId(userId){
+    const query = "select `group_id` from `group_user_map` where user_id = ?";
+    const values = [userId];
+    try{
+        const mysqlConnection = await mysql.createConnection(dbInfo);
+        const [rows, fields] = await mysqlConnection.execute(query, values);
+        mysqlConnection.end();
+        return rows;
+    }
+    catch(err){
+        throw err;
+    }
+}
