@@ -1,5 +1,6 @@
 .inputArea{
     display: flex;
+    height: 4%;
 }
 .inputBox{
     width: 100%;

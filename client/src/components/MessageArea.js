@@ -1,4 +1,5 @@
 import {Message} from './Message.js';
+import "./MessageArea.css";
 
 export function MessageArea(props){
     const messages = props.msgList.map((item, index) => {
@@ -9,7 +10,7 @@ export function MessageArea(props){
         )
     })
     return (
-        <div>
+        <div className='messageArea'>
             {messages}
         </div>
     );
