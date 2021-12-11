@@ -1,14 +1,35 @@
-// import { ChatBox } from './components/ChatBox.js';
+import { useEffect, useState } from 'react';
+
+import {ax} from './utils/axios.config.js';
 import {Header} from './components/Header.js';
+import {AuthContext} from './utils/contexts.js';
+
 import "./App.css";
 
 function App() {
+  const [user, setUser] = useState(null);
+
+  const updateAuthenticatedUser = ()=>{
+    ax.get('/user/getAuthenticatedUser')
+    .then((res)=>{
+      if(res.status === 200){
+        setUser(res.data);
+      }
+    })
+    .catch((err)=>{
+      if(err.response.status === 401)
+        setUser(null);
+    })
+  }
+
+  useEffect(updateAuthenticatedUser,[])
+
   return (
-    <div className="App">
-      <Header/>
-      {/* for testing */}
-      {/* <ChatBox groupId={16}/> */}
-    </div>
+    <AuthContext.Provider value={{user: user, updateUser: updateAuthenticatedUser}}>
+      <div className="App">
+        <Header/>
+      </div>
+    </AuthContext.Provider>
   );
 }
 

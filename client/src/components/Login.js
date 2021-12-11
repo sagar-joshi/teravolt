@@ -1,7 +1,9 @@
-import { useState } from "react"
+import { useContext, useState } from "react"
 import {ax} from '../utils/axios.config.js';
+import { AuthContext } from "../utils/contexts.js";
 
 export function Login(props){
+    const auth = useContext(AuthContext);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
@@ -11,7 +13,8 @@ export function Login(props){
             password: password
         })
         .then((res)=>{
-            console.log(res);
+            if(res.status === 200)
+                auth.updateUser();
         })
         .catch((err)=>{
             console.log(err);
@@ -45,7 +48,7 @@ export function Login(props){
                                 </div>                                
                             </div>
                             <div className="modal-footer justify-content-center">
-                                <button type="button" className="btn btn-primary" onClick={handleLogin}>Log in</button>
+                                <button type="button" className="btn btn-primary" data-bs-dismiss="modal" onClick={handleLogin}>Log in</button>
                             </div>
                         </div>
                     </div>

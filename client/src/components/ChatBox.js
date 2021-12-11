@@ -13,47 +13,36 @@ export function ChatBox(props){
     const userId = useRef("");
 
     useEffect(()=>{
-        // commented part is for testing
-        // ax.post('/user/login', {
-        //     email: "tom@gmail.com",
-        //     password: "Tom@1234"
-        // })
-        // .then(()=>{
-            ax.post('/group/getByGroupId',{
+        ax.post('/group/getByGroupId',{
+            groupId: groupId
+        })
+        .then((res)=>{
+            groupName.current = res.data[0].name;
+        })
+        .catch((err)=>{
+            console.log(err);
+        });
+
+        ax.get('/user/getAuthenticatedUser')
+        .then((res)=>{
+            userId.current=res.data.id;
+            ax.post('/message/getByGroupId',{
                 groupId: groupId
             })
             .then((res)=>{
-                groupName.current = res.data[0].name;
+                let result = res.data;
+                result = result.map((row)=>{
+                    return {name: row.firstName +" "+ row.lastName, msg: row.text, self:row.sender_id===userId.current }
+                })
+                setMsgList(result)
             })
             .catch((err)=>{
                 console.log(err);
             });
-    
-            ax.get('/user/getAuthenticatedUser')
-            .then((res)=>{
-                userId.current=res.data.id;
-                ax.post('/message/getByGroupId',{
-                    groupId: groupId
-                })
-                .then((res)=>{
-                    let result = res.data;
-                    result = result.map((row)=>{
-                        return {name: row.firstName +" "+ row.lastName, msg: row.text, self:row.sender_id===userId.current }
-                    })
-                    setMsgList(result)
-                })
-                .catch((err)=>{
-                    console.log(err);
-                });
-            })
-            .catch((err)=>{
-                console.log(err);
-            });
-        // })
-        // .catch((err)=>{
-        //     console.log(err);
-        // })
-        
+        })
+        .catch((err)=>{
+            console.log(err);
+        });
     },[groupId]);
     return (
         <div className="ChatBox">
