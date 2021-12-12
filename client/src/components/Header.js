@@ -7,7 +7,7 @@ export function Header(props){
     const auth = useContext(AuthContext);
 
     return (
-        <div className='row'>
+        <div className='Header row h-100'>
             <div className='col-10'>
 
             </div>

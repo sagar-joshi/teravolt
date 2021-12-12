@@ -1,5 +1,4 @@
 import {Message} from './Message.js';
-import "./MessageArea.css";
 
 export function MessageArea(props){
     const messages = props.msgList.map((item, index) => {
@@ -10,7 +9,9 @@ export function MessageArea(props){
         )
     })
     return (
-        <div className='messageArea'>
+        // overflow-y-scroll is not defined by default in bootstrap 
+        // its defined in style.css and imported in App.js
+        <div className='MessageArea h-100 overflow-y-scroll'>
             {messages}
         </div>
     );

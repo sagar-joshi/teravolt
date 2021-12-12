@@ -4,7 +4,6 @@ import { ChatHeader } from "./ChatHeader.js";
 import { MessageArea } from "./MessageArea.js";
 import {ax} from '../utils/axios.config.js';
 import { InputArea } from "./InputArea.js";
-import "./ChatBox.css";
 
 export function ChatBox(props){
     const groupId = props.groupId;
@@ -45,10 +44,10 @@ export function ChatBox(props){
         });
     },[groupId]);
     return (
-        <div className="ChatBox">
-         <ChatHeader groupName={groupName.current}/>
-        <MessageArea msgList={msgList}/>
-        <InputArea/>
+        <div className="ChatBox h-100">
+            <div className="h-6"><ChatHeader groupName={groupName.current}/></div>
+            <div className="h-90"><MessageArea msgList={msgList}/></div>
+            <div className="h-4"><InputArea/></div>
         </div>
     );
 }
