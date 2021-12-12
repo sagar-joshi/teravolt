@@ -11,8 +11,10 @@ export function MessageArea(props){
     return (
         // overflow-y-scroll is not defined by default in bootstrap 
         // its defined in style.css and imported in App.js
-        <div className='MessageArea h-100 overflow-y-scroll'>
-            {messages}
+        <div className='h-100 overflow-auto d-flex flex-column-reverse'>
+            <div className='MessageArea'>
+                {messages}
+            </div>
         </div>
     );
 }
