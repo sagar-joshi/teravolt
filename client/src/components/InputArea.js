@@ -12,8 +12,8 @@ export function InputArea(props){
             receiverId: props.groupId
         })
         .then((res)=>{
+            props.socket.emit("msg:new", {msgId: res.data.insertId});
             setText('');
-            props.updateMsgList();
         })
         .catch((err)=>{
             console.log(err);

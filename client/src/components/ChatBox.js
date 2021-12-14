@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef, useContext } from "react";
+import {io} from 'socket.io-client';
 
 import { ChatHeader } from "./ChatHeader.js";
 import { MessageArea } from "./MessageArea.js";
@@ -10,13 +11,23 @@ export function ChatBox(props){
     const auth = useContext(AuthContext);
     const groupId = props.groupId;
     const [msgList, setMsgList] = useState([]);
-    const [fetchMsgFlag, toggleFetchMsgFlag] = useState(false);
+    const [socket, setSocket] = useState(null);
     const groupName = useRef("");
     const userId = auth.user.id;
 
-    const updateFetchMsgFlag = ()=>{
-        toggleFetchMsgFlag(!fetchMsgFlag);
+    if(socket != null){
+        socket.on("msg:new", (msg)=>{
+            const newMsg = {name: msg.firstName +" "+ msg.lastName, msg: msg.text, self:msg.sender_id===userId };
+            const newMsgList = [...msgList, newMsg];
+            setMsgList(newMsgList);
+        })
     }
+
+    useEffect(()=>{
+        const newSocket = io("http://localhost:5000");
+        setSocket(newSocket);
+        return () => {newSocket.close()};
+    },[])
 
     useEffect(()=>{
         const setGroupName = ()=>{
@@ -52,13 +63,13 @@ export function ChatBox(props){
         }
 
         updateMsgList();
-    },[fetchMsgFlag, userId, groupId]);
+    },[userId, groupId]);
 
     return (
         <div className="ChatBox h-100">
             <div className="h-6"><ChatHeader groupName={groupName.current}/></div>
             <div className="h-90"><MessageArea msgList={msgList}/></div>
-            <div className="h-4"><InputArea groupId={groupId} updateMsgList={updateFetchMsgFlag}/></div>
+            <div className="h-4"><InputArea groupId={groupId} socket={socket}/></div>
         </div>
     );
 }

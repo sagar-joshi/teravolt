@@ -1,4 +1,4 @@
-import {insertMessage, getMessages} from '../models/message.model.js';
+import {insertMessage, getMessages, getMessage} from '../models/message.model.js';
 import {getGroupsByUserId} from '../models/group.model.js';
 
 export async function ensureAuthorizedToSendMessages(req, res, next){
@@ -41,6 +41,16 @@ export async function sendMessage(req, res){
     }
     catch(err){
         res.status(500).send(err);
+    }
+}
+
+export async function getMsgByMsgId(msgId){
+    try{
+        const result = await getMessage(msgId)
+        return result;
+    }
+    catch(err){
+        console.log(err);
     }
 }
 
