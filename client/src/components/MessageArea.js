@@ -9,9 +9,9 @@ export function MessageArea(props){
         )
     })
     return (
-        // overflow-y-scroll is not defined by default in bootstrap 
-        // its defined in style.css and imported in App.js
-        <div className='h-100 overflow-auto d-flex flex-column-reverse'>
+        // added key attribute in the below div because outer div(s) were not re-rendering
+        // on msgList prop change, thus preventing the scrollbar to reach the bottom
+        <div key={props.msgList[0].name} className='h-100 overflow-auto d-flex flex-column-reverse'>
             <div className='MessageArea'>
                 {messages}
             </div>
