@@ -11,7 +11,7 @@ router.post('/getByGroupId', ensureAuthenticated, MessageController.getMessagesB
 export function msgHandlers(io,socket){
     socket.on("msg:new",async (data)=>{
         const msg = await MessageController.getMsgByMsgId(data.msgId);
-        io.sockets.emit("msg:new", msg);
+        io.to(msg.receiver_id).emit("msg:new", msg);
     })
 }
 

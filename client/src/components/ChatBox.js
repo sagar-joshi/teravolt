@@ -25,9 +25,10 @@ export function ChatBox(props){
 
     useEffect(()=>{
         const newSocket = io("http://localhost:5000");
+        newSocket.emit("socket:new", {groupId: groupId});
         setSocket(newSocket);
         return () => {newSocket.close()};
-    },[])
+    },[groupId])
 
     useEffect(()=>{
         const setGroupName = ()=>{

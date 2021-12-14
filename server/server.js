@@ -34,6 +34,9 @@ app.use('/group', groupRoutes);
 app.use('/message', messageRoutes);
 
 const onConnection = (socket) => {
+  socket.on("socket:new", (data)=>{
+    socket.join(data.groupId);
+  })
   registerMsgHandlers(io, socket);
 }
 
