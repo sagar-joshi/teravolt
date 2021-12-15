@@ -22,6 +22,9 @@
 .fs-small{
     font-size: small;
 }
+.bg-blue{
+    background-color: aliceblue;
+}
 ::-webkit-scrollbar{
     background: white;
     width: 0.5rem;
