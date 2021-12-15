@@ -11,7 +11,7 @@ export function MessageArea(props){
     return (
         // added key attribute in the below div because outer div(s) were not re-rendering
         // on msgList prop change, thus preventing the scrollbar to reach the bottom
-        <div key={props.msgList[0].name} className='h-100 overflow-auto d-flex flex-column-reverse'>
+        <div key={props.msgList} className='h-100 overflow-auto d-flex flex-column-reverse'>
             <div className='MessageArea'>
                 {messages}
             </div>
