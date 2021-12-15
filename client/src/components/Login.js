@@ -28,7 +28,7 @@ export function Login(props){
     }
     return (
         <div>
-            <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#loginModal">
+            <button type="button" className="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#loginModal">
                 Log in
                 </button>
 

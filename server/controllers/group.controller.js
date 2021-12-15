@@ -1,4 +1,4 @@
-import { insertGroup, insertMember, getGroup } from "../models/group.model.js";
+import { insertGroup, insertMember, getGroup, getGroupsByUserId } from "../models/group.model.js";
 
 export async function createGroup(req, res){
     const {name} = req.body;
@@ -25,6 +25,18 @@ export async function addMember(req, res){
     }
     catch(err){
         res.status(500).send(err);
+    }
+}
+
+export async function getUserGroups(req, res){
+    const userId = req.body.id;
+    try{
+        const groupList = await getGroupsByUserId(userId);
+        res.status(200).send(groupList);
+    } 
+    catch(err){
+        res.status(500).send(err);
+        console.log(err)
     }
 }
 
