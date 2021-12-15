@@ -22,10 +22,9 @@ async function isMember(userId, groupId){
         for(const element of groups){
             if(element.group_id===groupId){
                 return true;
-            }else{
-                return false;
             }
         }
+        return false;
     }
     catch(err){
         throw err;
