@@ -69,8 +69,8 @@ export function ChatBox(props){
     return (
         <div className="ChatBox h-100">
             <div className="h-6"><ChatHeader groupName={groupName.current} closeChatBox={props.closeChatBox}/></div>
-            <div className="h-90"><MessageArea msgList={msgList}/></div>
-            <div className="h-4"><InputArea groupId={groupId} socket={socket}/></div>
+            <div className="h-89"><MessageArea msgList={msgList}/></div>
+            <div className="h-5"><InputArea groupId={groupId} socket={socket}/></div>
         </div>
     );
 }

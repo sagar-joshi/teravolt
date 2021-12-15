@@ -4,7 +4,7 @@ export function ChatHeader(props){
         props.closeChatBox();
     }
     return (
-        <div className="ChatHeader h-100 row">
+        <div className="ChatHeader h-100 row d-flex flex-row align-items-center card">
             <div className="col-11 d-flex justify-content-center">
                 {props.groupName}
             </div>

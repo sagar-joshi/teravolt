@@ -1,10 +1,9 @@
-import "./Message.css";
-
 export function Message(props){
+    const msgInnerDiv = `text-start d-inline-block m-2 p-1 border rounded ${props.self?"border-primary":"border-dark"}`;
     return (
-        <div className={props.self?"msgSelf":"msgOthers"}>
-            <div className="msgInnerDiv">
-                <div className="msgSender">
+        <div className={props.self?"text-end":"text-start"}>
+            <div className={msgInnerDiv}>
+                <div className="msgSender fw-light fs-small d-inline-block text-success">
                     <span>{props.senderName}</span>
                 </div>
                 <div className="msgText">

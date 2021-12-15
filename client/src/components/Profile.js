@@ -17,7 +17,7 @@ export function Profile(props){
     }
     return (
         <div>
-            <button type="button" className="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#profileModal">
+            <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#profileModal">
                 {auth.user.firstName}
                 </button>
 

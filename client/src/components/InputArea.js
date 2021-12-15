@@ -20,9 +20,9 @@ export function InputArea(props){
         })
     };
     return (
-        <div className="InputArea d-flex h-100">
-            <input className="w-100" type="text" placeholder="Enter text here" value={text} onChange={handleChange}/>
-            <button onClick={handleSend}>Send</button>
+        <div className="InputArea d-flex flex-row h-100 ms-2 me-2">
+            <input className="w-100 border" type="text" placeholder="Enter text here" value={text} onChange={handleChange}/>
+            <button className="btn border" onClick={handleSend}>Send</button>
         </div>
     );
 }
