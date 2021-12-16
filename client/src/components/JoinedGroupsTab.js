@@ -4,7 +4,7 @@ import { AuthContext } from "../utils/contexts"
 
 export function JoinedGroupsTab(props){
     const auth = useContext(AuthContext);
-    const [groupList, setGroupList] = useState(null);
+    const [groupList, setGroupList] = useState([]);
 
     useEffect(()=>{
         ax.post('/group/getByUserId',auth.user)
@@ -20,7 +20,7 @@ export function JoinedGroupsTab(props){
         props.showChatBox(groupId);
     }
 
-    const groups = groupList===null?"No group joined":groupList.map((item, index)=>{
+    const groups = groupList.length === 0?<div className="ms-3 mt-4">You have not joined any group yet.</div>:groupList.map((item, index)=>{
         return (
         <div className="card" key={index}>
             <div className="card-body">
