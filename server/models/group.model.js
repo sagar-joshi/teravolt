@@ -53,6 +53,19 @@ export async function getGroup(groupId){
     }
 }
 
+export async function getGroups(){
+    const query = "select * from `table_groups`";
+    try{
+        const mysqlConnection = await mysql.createConnection(dbInfo);
+        const [rows, fields] = await mysqlConnection.execute(query);
+        mysqlConnection.end();
+        return rows;
+    }
+    catch(err){
+        throw err;
+    }
+}
+
 export async function getGroupsByUserId(userId){
     const query = "select `name`, `group_id` from `table_groups` join `group_user_map` on table_groups.`id`=group_user_map.`group_id` where user_id=?";
     const values = [userId];

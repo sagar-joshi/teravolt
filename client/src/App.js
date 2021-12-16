@@ -11,16 +11,15 @@ import { ChatBox } from './components/ChatBox.js';
 
 function App() {
   const [user, setUser] = useState(null);
-  const [chatBox, setChatBox] = useState(false);
   const [chatBoxGroupId, setChatBoxGroupId] = useState(null);
 
   const showChatBox = (groupId)=>{
-    setChatBox(true);
+    //setChatBox(true);
     setChatBoxGroupId(groupId);
   }
 
   const closeChatBox = ()=>{
-    setChatBox(false);
+    //setChatBox(false);
     setChatBoxGroupId(null);
   }
 
@@ -40,7 +39,7 @@ function App() {
   useEffect(updateAuthenticatedUser,[])
 
   const dashboard = user?<Dashboard showChatBox={showChatBox}/>:null;
-  const body = chatBox?<ChatBox groupId={chatBoxGroupId} closeChatBox={closeChatBox}/>:dashboard;
+  const body = (chatBoxGroupId!=null)?<ChatBox groupId={chatBoxGroupId} closeChatBox={closeChatBox}/>:dashboard;
 
   return (
     <AuthContext.Provider value={{user: user, updateUser: updateAuthenticatedUser}}>
