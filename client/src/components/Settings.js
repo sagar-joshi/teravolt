@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { ax } from "../utils/axios.config"
 import { AuthContext } from "../utils/contexts";
 
-export function Profile(props){
+export function Settings(props){
     const auth = useContext(AuthContext);
 
     const handleLogout = ()=>{

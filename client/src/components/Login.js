@@ -35,9 +35,8 @@ export function Login(props){
                 <div className="modal fade" id="loginModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div className="modal-dialog">
                         <div className="modal-content">
-                            <div className="modal-header">
+                            <div className="modal-header justify-content-center">
                                 <h5 className="modal-title" id="exampleModalLabel">Log in</h5>
-                                <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div className="modal-body d-flex flex-column align-items-center">
                                 <div className='m-3'>
