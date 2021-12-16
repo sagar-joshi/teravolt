@@ -25,7 +25,7 @@ export function JoinedGroupsTab(props){
         <div className="card" key={index}>
             <div className="card-body">
                 <h5 className="card-title">{item.name}</h5>
-                <p className="card-text">Description</p>
+                <p className="card-text">{item.description}</p>
                 <button className="btn btn-primary" onClick={()=>{handleEnterGroup(item.group_id)}}>Enter Group</button>
             </div>
         </div>
