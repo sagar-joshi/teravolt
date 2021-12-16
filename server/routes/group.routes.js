@@ -7,6 +7,7 @@ const router = new Router();
 
 router.post('/create', ensureAuthenticated, GroupController.createGroup);
 router.post('/addMember', ensureAuthenticated, GroupController.addMember);
+router.post('/removeMember', ensureAuthenticated, GroupController.removeMember);
 router.post('/getByGroupId', ensureAuthenticated, GroupController.getGroupByGroupId)
 router.post('/getByUserId', ensureAuthenticated, GroupController.getUserGroups);
 router.post('/getGroups',ensureAuthenticated, GroupController.getAllGroups);

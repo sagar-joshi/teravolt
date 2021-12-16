@@ -39,6 +39,20 @@ export async function insertMember(groupId, userId){
     }
 }
 
+export async function deleteUserFromGroup(groupId, userId){
+    const query = "delete from `group_user_map` where `group_id`=? and `user_id`=?";
+    const values = [groupId, userId];
+    try{
+        const mysqlConnection = await mysql.createConnection(dbInfo);
+        const [rows, fields] = await mysqlConnection.execute(query, values);
+        mysqlConnection.end();
+        return rows;
+    }
+    catch(err){
+        throw err;
+    }
+}
+
 export async function getGroup(groupId){
     const query = "SELECT * from `table_groups` where `id`=?";
     const values = [groupId];
