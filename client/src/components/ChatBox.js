@@ -24,7 +24,8 @@ export function ChatBox(props){
     }
 
     useEffect(()=>{
-        const newSocket = io("http://localhost:5000");
+        const socketUrl = process.env.REACT_APP_SOCKET_URL || "http://localhost:5000/";
+        const newSocket = io(socketUrl);
         newSocket.emit("socket:new", {groupId: groupId});
         setSocket(newSocket);
         return () => {newSocket.close()};
