@@ -3,6 +3,7 @@ import {Settings} from './Settings.js';
 import { AuthContext } from '../utils/contexts.js';
 import { useState, useContext } from 'react';
 import { Signup } from './Signup.js';
+import logo from '../images/logo.jpg';
 
 export function Header(props){
     const auth = useContext(AuthContext);
@@ -52,10 +53,11 @@ export function Header(props){
 
     return (
         <div className='Header row h-100'>
-            <div className='col-8'>
+            <div className='col-6 h-100'>
+                <img src={logo} className='d-block h-100 w-40' alt="logo"/>
                 {toastElement}
             </div>
-            <div className='col-4 d-flex justify-content-end'>
+            <div className='col-6 d-flex justify-content-end'>
                 {rightCorner}
             </div>
         </div>

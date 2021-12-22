@@ -5,8 +5,9 @@ import {Header} from './components/Header.js';
 import {AuthContext} from './utils/contexts.js';
 
 import "./utils/style.css";
-import { Dashboard } from './components/Dashboard';
+import { Dashboard } from './components/Dashboard.js';
 import { ChatBox } from './components/ChatBox.js';
+import { HomePage } from './components/HomePage.js'
 
 
 function App() {
@@ -38,7 +39,7 @@ function App() {
 
   useEffect(updateAuthenticatedUser,[])
 
-  const dashboard = user?<Dashboard showChatBox={showChatBox}/>:null;
+  const dashboard = user?<Dashboard showChatBox={showChatBox}/>:<HomePage/>;
   const body = (chatBoxGroupId!=null)?<ChatBox groupId={chatBoxGroupId} closeChatBox={closeChatBox}/>:dashboard;
 
   return (
@@ -46,7 +47,7 @@ function App() {
       <div className="App vh-100 overflow-hidden">
         {/* with bootstrap only h-25, h-50, h-75, h-100 are supported by default */}
         <div className='h-5'><Header/></div>
-        <div className='h-95'>{body}</div>
+        <div className='h-95 pt-2'>{body}</div>
       </div>
     </AuthContext.Provider>
   );
