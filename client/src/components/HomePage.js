@@ -11,7 +11,7 @@ export function HomePage(props){
 
     return(
         <div className='h-100'>
-            <div id="carouselExampleInterval" className="carousel slide h-50" data-bs-ride="carousel">
+            <div id="carouselExampleInterval" className="carousel slide h-70" data-bs-ride="carousel">
                 <div className="carousel-inner h-100">
                     <div className="carousel-item active h-100" data-bs-interval="4000">
                         <img src={slide1} className="d-block w-100 h-100" alt="Chat with Strangers"/>
@@ -29,7 +29,7 @@ export function HomePage(props){
                     <span className="visually-hidden">Next</span>
                 </button>
             </div>
-            <div className='d-flex flex-column align-items-center h-50 justify-content-center'>
+            <div className='d-flex flex-column align-items-center h-30 justify-content-center'>
                 <div className='m-2'>
                     <input type="text" placeholder='Type nickname here' value={nickName} onChange={handleNickNameChange}></input>
                 </div>
