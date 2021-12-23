@@ -1,15 +1,26 @@
 import { useState } from 'react';
 import slide1 from '../images/slide1.jpg';
 import slide2 from '../images/slide2.jpg';
+import { ChatBox } from './ChatBox';
 
 export function HomePage(props){
     const [nickName, setNickName] = useState('');
+    const [chatRoomId, setChatRoomId] = useState(null);
 
     const handleNickNameChange = (e) => {
         setNickName(e.target.value);
     }
 
+    const handleEnterChatRoom = () => {
+        setChatRoomId("R1")
+    }
+
+    const closeChatBox = () => {
+        setChatRoomId(null);
+    }
+
     return(
+        (chatRoomId !== null)?<ChatBox groupId={chatRoomId} type="unAuthenticated" closeChatBox={closeChatBox} nickName={nickName}/>:
         <div className='h-100'>
             <div id="carouselExampleInterval" className="carousel slide h-70" data-bs-ride="carousel">
                 <div className="carousel-inner h-100">
@@ -34,9 +45,9 @@ export function HomePage(props){
                     <input type="text" placeholder='Type nickname here' value={nickName} onChange={handleNickNameChange}></input>
                 </div>
                 <div className='m-2'>
-                    <button className='btn btn-primary'>Enter Chat room</button>
+                    <button className='btn btn-primary' onClick={handleEnterChatRoom}>Enter Chat room</button>
                 </div>                
             </div>
         </div>
-    )
+    );
 }

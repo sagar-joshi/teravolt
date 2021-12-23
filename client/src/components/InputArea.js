@@ -7,17 +7,22 @@ export function InputArea(props){
         setText(e.target.value);
     };
     const handleSend = () => {
-        ax.post('/message/send', {
-            text: text,
-            receiverId: props.groupId
-        })
-        .then((res)=>{
-            props.socket.emit("msg:new", {msgId: res.data.insertId});
+        if(props.forAuthenticatedUsers){
+            ax.post('/message/send', {
+                text: text,
+                receiverId: props.groupId
+            })
+            .then((res)=>{
+                props.socket.emit("msg:new", {msgId: res.data.insertId});
+                setText('');
+            })
+            .catch((err)=>{
+                console.log(err);
+            })
+        }else{
+            props.socket.emit("msg:new:noSave", {groupId: props.groupId, nickName: props.nickName, text: text});
             setText('');
-        })
-        .catch((err)=>{
-            console.log(err);
-        })
+        }
     };
     return (
         <div className="InputArea d-flex flex-row h-100 ms-2 me-2">

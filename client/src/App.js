@@ -15,12 +15,10 @@ function App() {
   const [chatBoxGroupId, setChatBoxGroupId] = useState(null);
 
   const showChatBox = (groupId)=>{
-    //setChatBox(true);
     setChatBoxGroupId(groupId);
   }
 
   const closeChatBox = ()=>{
-    //setChatBox(false);
     setChatBoxGroupId(null);
   }
 
@@ -39,8 +37,11 @@ function App() {
 
   useEffect(updateAuthenticatedUser,[])
 
-  const dashboard = user?<Dashboard showChatBox={showChatBox}/>:<HomePage/>;
-  const body = (chatBoxGroupId!=null)?<ChatBox groupId={chatBoxGroupId} closeChatBox={closeChatBox}/>:dashboard;
+  const body = user?
+                    chatBoxGroupId?
+                                  <ChatBox groupId={chatBoxGroupId} type="authenticated" closeChatBox={closeChatBox}/>:
+                                  <Dashboard showChatBox={showChatBox}/>:
+                    <HomePage/>
 
   return (
     <AuthContext.Provider value={{user: user, updateUser: updateAuthenticatedUser}}>

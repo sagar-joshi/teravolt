@@ -8,20 +8,24 @@ import { InputArea } from "./InputArea.js";
 import { AuthContext } from "../utils/contexts.js";
 
 export function ChatBox(props){
+    const forAuthenticatedUsers = props.type==="authenticated"?true:false;
+
     const auth = useContext(AuthContext);
+    const userId = forAuthenticatedUsers? auth.user.id : null;
+
     const groupId = props.groupId;
     const [msgList, setMsgList] = useState([]);
     const [socket, setSocket] = useState(null);
     const groupName = useRef("");
-    const userId = auth.user.id;
 
-    if(socket != null){
-        socket.on("msg:new", (msg)=>{
-            const newMsg = {name: msg.firstName +" "+ msg.lastName, msg: msg.text, self:msg.sender_id===userId };
-            const newMsgList = [...msgList, newMsg];
-            setMsgList(newMsgList);
-        })
-    }
+    useEffect(() => {
+        if(socket != null){
+            socket.on("msg:new", (msg)=>{
+                const newMsg = {name: msg.firstName +" "+ msg.lastName, msg: msg.text, self:msg.sender_id===null?msg.firstName===props.nickName:msg.sender_id===userId };
+                setMsgList(msgList => [...msgList, newMsg]);
+            })
+        }
+    },[socket, userId, props.nickName])
 
     useEffect(()=>{
         const socketUrl = process.env.REACT_APP_SOCKET_URL || "http://localhost:5000/";
@@ -44,8 +48,11 @@ export function ChatBox(props){
             });
         }
 
-        setGroupName();
-    },[groupId])
+        if(forAuthenticatedUsers)
+            setGroupName();
+        else
+            groupName.current = `Room ${groupId}`;
+    },[groupId, forAuthenticatedUsers])
 
     useEffect(()=>{
         const updateMsgList = ()=>{
@@ -64,14 +71,15 @@ export function ChatBox(props){
             });
         }
 
-        updateMsgList();
-    },[userId, groupId]);
+        if(forAuthenticatedUsers)
+            updateMsgList();
+    },[userId, groupId, forAuthenticatedUsers]);
 
     return (
         <div className="ChatBox h-100">
             <div className="h-6"><ChatHeader groupName={groupName.current} closeChatBox={props.closeChatBox}/></div>
             <div className="h-89"><MessageArea msgList={msgList}/></div>
-            <div className="h-5"><InputArea groupId={groupId} socket={socket}/></div>
+            <div className="h-5"><InputArea groupId={groupId} socket={socket} forAuthenticatedUsers={forAuthenticatedUsers} nickName={props.nickName?props.nickName:null}/></div>
         </div>
     );
 }
