@@ -24,9 +24,16 @@ export function InputArea(props){
             setText('');
         }
     };
+    const handleKeyPress = (e) => {
+        if(e.code === "Enter"){
+            handleSend();
+        }
+    }
     return (
         <div className="InputArea d-flex flex-row h-100 ms-2 me-2">
-            <input className="w-100 border" type="text" placeholder="Enter text here" value={text} onChange={handleChange}/>
+            <input 
+            className="w-100 border" type="text" placeholder="Enter text here" autoFocus="autofocus"
+            value={text} onChange={handleChange} onKeyPress={handleKeyPress}/>
             <button className="btn border" onClick={handleSend}>Send</button>
         </div>
     );
