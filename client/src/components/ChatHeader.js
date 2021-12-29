@@ -1,6 +1,11 @@
 
 export function ChatHeader(props){
     const handleClose = ()=>{
+        if(props.forAuthenticatedUsers)
+            props.socket.emit("groupMem:out", {groupId: props.groupId});
+        if(!props.forAuthenticatedUsers)
+            props.socket.emit("roomMem:out", {roomId: props.groupId});
+
         props.closeChatBox();
     }
     return (

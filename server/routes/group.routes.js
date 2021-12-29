@@ -12,4 +12,13 @@ router.post('/getByGroupId', ensureAuthenticated, GroupController.getGroupByGrou
 router.post('/getByUserId', ensureAuthenticated, GroupController.getUserGroups);
 router.post('/getGroups',ensureAuthenticated, GroupController.getAllGroups);
 
+export function groupMemHandler(io,socket){
+    socket.on("groupMem:in", async (data) => {
+        socket.join(data.groupId);
+    })
+    socket.on("groupMem:out", async (data) => {
+        socket.leave(data.groupId);
+    })
+}
+
 export default router;

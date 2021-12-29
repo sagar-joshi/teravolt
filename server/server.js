@@ -11,7 +11,10 @@ import './utils/auth.js';
 import userRoutes from './routes/user.routes.js';
 import groupRoutes from './routes/group.routes.js';
 import messageRoutes from './routes/message.routes.js';
+import chatRoomRoutes from './routes/chatroom.routes.js';
 import {msgHandlers as registerMsgHandlers} from './routes/message.routes.js';
+import {groupMemHandler as registerGroupMemHandler} from './routes/group.routes.js';
+import {roomMemHandlers as registerRoomMemHandler} from './routes/chatroom.routes.js';
 
 dotenv.config();
 const port = process.env.APP_PORT || 5000;
@@ -33,12 +36,12 @@ app.use(passport.session());
 app.use('/user', userRoutes);
 app.use('/group', groupRoutes);
 app.use('/message', messageRoutes);
+app.use('/room', chatRoomRoutes);
 
 const onConnection = (socket) => {
-  socket.on("socket:new", (data)=>{
-    socket.join(data.groupId);
-  })
   registerMsgHandlers(io, socket);
+  registerRoomMemHandler(io, socket);
+  registerGroupMemHandler(io, socket);
 }
 
 io.on("connection", onConnection);

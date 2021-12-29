@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import slide1 from '../images/slide1.jpg';
 import slide2 from '../images/slide2.jpg';
+import { ax } from '../utils/axios.config';
 import { ChatBox } from './ChatBox';
 
 export function HomePage(props){
@@ -11,8 +12,24 @@ export function HomePage(props){
         setNickName(e.target.value);
     }
 
-    const handleEnterChatRoom = () => {
-        setChatRoomId("R1")
+    const handleEnterGroupChatRoom = () => {
+        ax.post('/room/id',{maxMembers: 10})
+        .then((res) => {
+            setChatRoomId(res.data.roomId);
+        })
+        .catch((err) => {
+            console.log(err);   //to be fixed later
+        })
+    }
+
+    const handleEnterOneOneChatRoom = () => {
+        ax.post('/room/id',{maxMembers: 2})
+        .then((res) => {
+            setChatRoomId(res.data.roomId);
+        })
+        .catch((err) => {
+            console.log(err);   //to be fixed later
+        })
     }
 
     const closeChatBox = () => {
@@ -45,7 +62,8 @@ export function HomePage(props){
                     <input type="text" placeholder='Type nickname here' value={nickName} onChange={handleNickNameChange}></input>
                 </div>
                 <div className='m-2'>
-                    <button className='btn btn-primary' onClick={handleEnterChatRoom}>Enter Chat room</button>
+                    <button className='btn btn-primary me-2' onClick={handleEnterGroupChatRoom}>Enter Group Chat Room</button>
+                    <button className='btn btn-primary ms-2' onClick={handleEnterOneOneChatRoom}>Enter 1-1 Chat room</button>
                 </div>                
             </div>
         </div>

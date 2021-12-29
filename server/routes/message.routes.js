@@ -13,9 +13,9 @@ export function msgHandlers(io,socket){
         const msg = await MessageController.getMsgByMsgId(data.msgId);
         io.to(msg.receiver_id).emit("msg:new", msg);
     })
-    socket.on("msg:new:noSave", async (data) => {
+    socket.on("msg:new:noSave", (data) => {
         const msg = {sender_id: null, firstName: data.nickName, lastName:'', text: data.text};
-        io.to(data.groupId).emit("msg:new", msg);
+        io.to(`R${data.groupId}`).emit("msg:new", msg);
     })
 }
 

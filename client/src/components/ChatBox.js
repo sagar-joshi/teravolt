@@ -30,10 +30,16 @@ export function ChatBox(props){
     useEffect(()=>{
         const socketUrl = process.env.REACT_APP_SOCKET_URL || "http://localhost:5000/";
         const newSocket = io(socketUrl);
-        newSocket.emit("socket:new", {groupId: groupId});
         setSocket(newSocket);
-        return () => {newSocket.close()};
-    },[groupId])
+        if(forAuthenticatedUsers)
+            newSocket.emit("groupMem:in", {groupId: groupId});
+        if(!forAuthenticatedUsers)
+            newSocket.emit("roomMem:in", {roomId: groupId});
+        
+        return () => {
+            newSocket.close()
+        };
+    },[groupId, forAuthenticatedUsers])
 
     useEffect(()=>{
         const setGroupName = ()=>{
@@ -77,7 +83,7 @@ export function ChatBox(props){
 
     return (
         <div className="ChatBox h-100">
-            <div className="h-6"><ChatHeader groupName={groupName.current} closeChatBox={props.closeChatBox}/></div>
+            <div className="h-6"><ChatHeader groupId = {groupId} groupName={groupName.current} socket={socket} forAuthenticatedUsers={forAuthenticatedUsers} closeChatBox={props.closeChatBox}/></div>
             <div className="h-89"><MessageArea msgList={msgList}/></div>
             <div className="h-5"><InputArea groupId={groupId} socket={socket} forAuthenticatedUsers={forAuthenticatedUsers} nickName={props.nickName?props.nickName:null}/></div>
         </div>

@@ -2,7 +2,7 @@ import mysql from 'mysql2/promise';
 
 import { dbInfo } from "../utils/dbInfo.js";
 
-export async function insertGroup(name, createrId){
+export async function insertGroup(name){
     const query = "INSERT INTO `table_groups` (`name`) VALUES (?)";
     const values = [name];
     try{
