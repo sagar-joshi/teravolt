@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import slide1 from '../images/slide1.jpg';
-import slide2 from '../images/slide2.jpg';
+import slide1 from '../images/slide1.webp';
+import slide2 from '../images/slide2.webp';
 import { ax } from '../utils/axios.config';
 import { ChatBox } from './ChatBox';
 
@@ -39,7 +39,7 @@ export function HomePage(props){
     return(
         (chatRoomId !== null)?<ChatBox groupId={chatRoomId} type="unAuthenticated" closeChatBox={closeChatBox} nickName={nickName}/>:
         <div className='h-100'>
-            <div id="carouselExampleInterval" className="carousel slide h-70" data-bs-ride="carousel">
+            <div id="carouselExampleInterval" className="carousel slide h-60" data-bs-ride="carousel">
                 <div className="carousel-inner h-100">
                     <div className="carousel-item active h-100" data-bs-interval="4000">
                         <img src={slide1} className="d-block w-100 h-100" alt="Chat with Strangers"/>
@@ -57,7 +57,7 @@ export function HomePage(props){
                     <span className="visually-hidden">Next</span>
                 </button>
             </div>
-            <div className='d-flex flex-column align-items-center h-30 justify-content-center'>
+            <div className='d-flex flex-column align-items-center h-40 justify-content-center'>
                 <div className='m-2'>
                     <input type="text" placeholder='Type nickname here' value={nickName} onChange={handleNickNameChange}></input>
                 </div>

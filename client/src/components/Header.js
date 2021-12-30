@@ -3,7 +3,7 @@ import {Settings} from './Settings.js';
 import { AuthContext } from '../utils/contexts.js';
 import { useState, useContext } from 'react';
 import { Signup } from './Signup.js';
-import logo from '../images/logo.jpg';
+import logo from '../images/logo.webp';
 
 export function Header(props){
     const auth = useContext(AuthContext);
