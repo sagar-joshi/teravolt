@@ -20,6 +20,17 @@ export async function decrementMemCount(roomId){
     }
 }
 
+export async function getRoom(req, res) {
+    const roomId = req.body.roomId;
+    try{
+        const room = await findRoomById(roomId);
+        res.status(200).send(room);
+    }
+    catch(err){
+        res.status(500).send(err);
+    }
+}
+
 export async function getRoomId(req, res) {
     const maxMembers = req.body.maxMembers;
     try{

@@ -4,14 +4,17 @@ import * as ChatRoomController from '../controllers/chatroom.controller.js';
 
 const router = new Router();
 
-router.post('/id', ChatRoomController.getRoomId);
+router.post('/', ChatRoomController.getRoom);
+router.post('/emptyRoomId', ChatRoomController.getRoomId);
 
 export function roomMemHandlers(io,socket){
     socket.on("roomMem:in", async (data) => {
         socket.join(`R${data.roomId}`);
         await ChatRoomController.incrementMemCount(data.roomId);
+        io.to(`R${data.roomId}`).emit("mem:in");
     })
     socket.on("roomMem:out", async (data) => {
+        io.to(`R${data.roomId}`).emit("mem:out");
         socket.leave(`R${data.roomId}`);
         await ChatRoomController.decrementMemCount(data.roomId);
     })

@@ -16,6 +16,7 @@ export function ChatBox(props){
     const groupId = props.groupId;
     const [msgList, setMsgList] = useState([]);
     const [socket, setSocket] = useState(null);
+    const [activeMem, setActiveMem] = useState(0);
     const groupName = useRef("");
 
     useEffect(() => {
@@ -24,6 +25,12 @@ export function ChatBox(props){
                 const newMsg = {name: msg.firstName +" "+ msg.lastName, msg: msg.text, self:msg.sender_id===null?msg.firstName===props.nickName:msg.sender_id===userId };
                 setMsgList(msgList => [...msgList, newMsg]);
             })
+            socket.on("mem:in", ()=>{
+                setActiveMem(activeMem=>(activeMem+1));
+            });
+            socket.on("mem:out", ()=>{
+                setActiveMem(activeMem=>(activeMem -1));
+            });
         }
     },[socket, userId, props.nickName])
 
@@ -54,10 +61,24 @@ export function ChatBox(props){
             });
         }
 
+        const updateActiveCount = () => {
+            ax.post('/room',{
+                roomId: groupId
+            })
+            .then((res)=>{
+                setActiveMem(res.data.member_count);
+            })
+            .catch((err)=>{
+                console.log(err);
+            });
+        }
+
         if(forAuthenticatedUsers)
             setGroupName();
-        else
+        else{
             groupName.current = `Room ${groupId}`;
+            updateActiveCount();
+        }
     },[groupId, forAuthenticatedUsers])
 
     useEffect(()=>{
@@ -80,10 +101,9 @@ export function ChatBox(props){
         if(forAuthenticatedUsers)
             updateMsgList();
     },[userId, groupId, forAuthenticatedUsers]);
-
     return (
         <div className="ChatBox h-100">
-            <div className="h-6"><ChatHeader groupId = {groupId} groupName={groupName.current} socket={socket} forAuthenticatedUsers={forAuthenticatedUsers} closeChatBox={props.closeChatBox}/></div>
+            <div className="h-6"><ChatHeader groupId = {groupId} groupName={groupName.current} activeMem={activeMem} socket={socket} forAuthenticatedUsers={forAuthenticatedUsers} closeChatBox={props.closeChatBox}/></div>
             <div className="h-89"><MessageArea msgList={msgList}/></div>
             <div className="h-5"><InputArea groupId={groupId} socket={socket} forAuthenticatedUsers={forAuthenticatedUsers} nickName={props.nickName?props.nickName:null}/></div>
         </div>

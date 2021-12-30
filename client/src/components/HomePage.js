@@ -13,7 +13,7 @@ export function HomePage(props){
     }
 
     const handleEnterGroupChatRoom = () => {
-        ax.post('/room/id',{maxMembers: 10})
+        ax.post('/room/emptyRoomId',{maxMembers: 10})
         .then((res) => {
             setChatRoomId(res.data.roomId);
         })
@@ -23,7 +23,7 @@ export function HomePage(props){
     }
 
     const handleEnterOneOneChatRoom = () => {
-        ax.post('/room/id',{maxMembers: 2})
+        ax.post('/room/emptyRoomId',{maxMembers: 2})
         .then((res) => {
             setChatRoomId(res.data.roomId);
         })
