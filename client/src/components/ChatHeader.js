@@ -1,4 +1,3 @@
-
 export function ChatHeader(props){
     const handleClose = ()=>{
         if(props.forAuthenticatedUsers)
@@ -11,10 +10,10 @@ export function ChatHeader(props){
     const activeCount = props.forAuthenticatedUsers?"":`(${props.activeMem} online)`;
     return (
         <div className="ChatHeader h-100 row d-flex flex-row align-items-center card">
-            <div className="col-11 d-flex justify-content-center">
+            <div className="col-10 d-flex justify-content-center">
                 {`${props.groupName} ${activeCount}`}
             </div>
-            <div className="col-1 d-flex justify-content-end">
+            <div className="col-2 d-flex justify-content-end">
                 <button className="btn btn-close" onClick={handleClose}></button>
             </div>
         </div>

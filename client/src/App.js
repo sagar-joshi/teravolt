@@ -8,7 +8,7 @@ import "./utils/style.css";
 import { Dashboard } from './components/Dashboard.js';
 import { ChatBox } from './components/ChatBox.js';
 import { HomePage } from './components/HomePage.js'
-
+import './App.css'
 
 function App() {
   const [user, setUser] = useState(null);
@@ -47,8 +47,8 @@ function App() {
     <AuthContext.Provider value={{user: user, updateUser: updateAuthenticatedUser}}>
       <div className="App vh-100 overflow-hidden">
         {/* with bootstrap only h-25, h-50, h-75, h-100 are supported by default */}
-        <div className='h-5'><Header/></div>
-        <div className='h-95 pt-2'>{body}</div>
+        <div className='AppHeader h-5'><Header/></div>
+        <div className='h-95 pt-2 pb-3'>{body}</div>
       </div>
     </AuthContext.Provider>
   );

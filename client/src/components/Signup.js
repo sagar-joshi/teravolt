@@ -39,8 +39,8 @@ export function Signup(props){
     }
 
     return (
-        <div>
-            <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#signUp">
+        <div className="h-100">
+            <button type="button" className="btn btn-primary h-100 text-center" data-bs-toggle="modal" data-bs-target="#signUp">
                 Sign up
             </button>
 

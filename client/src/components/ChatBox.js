@@ -6,6 +6,7 @@ import { MessageArea } from "./MessageArea.js";
 import {ax} from '../utils/axios.config.js';
 import { InputArea } from "./InputArea.js";
 import { AuthContext } from "../utils/contexts.js";
+import './ChatBox.css';
 
 export function ChatBox(props){
     const forAuthenticatedUsers = props.type==="authenticated"?true:false;
@@ -104,8 +105,8 @@ export function ChatBox(props){
     return (
         <div className="ChatBox h-100">
             <div className="h-6"><ChatHeader groupId = {groupId} groupName={groupName.current} activeMem={activeMem} socket={socket} forAuthenticatedUsers={forAuthenticatedUsers} closeChatBox={props.closeChatBox}/></div>
-            <div className="h-89"><MessageArea msgList={msgList}/></div>
-            <div className="h-5"><InputArea groupId={groupId} socket={socket} forAuthenticatedUsers={forAuthenticatedUsers} nickName={props.nickName?props.nickName:null}/></div>
+            <div className="h-88"><MessageArea msgList={msgList}/></div>
+            <div className="h-6"><InputArea groupId={groupId} socket={socket} forAuthenticatedUsers={forAuthenticatedUsers} nickName={props.nickName?props.nickName:null}/></div>
         </div>
     );
 }

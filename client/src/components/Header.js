@@ -46,9 +46,9 @@ export function Header(props){
                             </div>
                             </div>
                         </div>
-    const rightCorner = auth.user?<Settings/>:  <div className='d-flex'>
-                                                    <div className='ms-1 me-1'><Signup updateToast={updateToast}/></div>
-                                                    <div className='ms-1 me-1'><Login/></div>
+    const rightCorner = auth.user?<Settings/>:  <div className='d-flex h-100'>
+                                                    <div className='ms-1 me-1 h-100'><Signup updateToast={updateToast}/></div>
+                                                    <div className='ms-1 me-1' h-100><Login/></div>
                                                 </div>
 
     return (
@@ -57,7 +57,7 @@ export function Header(props){
                 <img src={logo} className='d-block h-100 w-40' alt="logo"/>
                 {toastElement}
             </div>
-            <div className='col-6 d-flex justify-content-end'>
+            <div className='col-6 h-100 d-flex justify-content-end'>
                 {rightCorner}
             </div>
         </div>

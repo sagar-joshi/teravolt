@@ -27,8 +27,8 @@ export function Login(props){
         setPassword(e.target.value);
     }
     return (
-        <div>
-            <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#loginModal">
+        <div className="h-100">
+            <button type="button" className="btn btn-primary h-100" data-bs-toggle="modal" data-bs-target="#loginModal">
                 Log in
                 </button>
 
