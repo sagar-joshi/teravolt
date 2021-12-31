@@ -1,5 +1,5 @@
 import { IconContext } from 'react-icons/lib';
-import { MdClose, MdNavigateNext, MdNavigateBefore } from 'react-icons/md';
+import { MdClose, MdNavigateNext, MdNavigateBefore, MdPeople } from 'react-icons/md';
 
 export function ChatHeader(props){
     const handleClose = ()=>{
@@ -19,19 +19,28 @@ export function ChatHeader(props){
 
     }
 
-    const activeCount = props.forAuthenticatedUsers?"":`(${props.activeMem} online)`;
+    const activeCount = props.forAuthenticatedUsers?"":`${props.activeMem}`;
+
     return (
-        <IconContext.Provider value={{size: "1.5em"}}>
+        
             <div className="ChatHeader h-100 row d-flex flex-row align-items-center card">
                     <div className="col-10 d-flex justify-content-center align-items-center">
-                        <button className="btn" onClick={handlePrev}><MdNavigateBefore/></button>
-                        {`${props.groupName} ${activeCount}`}
-                        <button className="btn" onClick={handleNext}><MdNavigateNext/></button>
+                        <IconContext.Provider value={{size: "1.5em", color: "blue"}}>
+                            <button className="btn" onClick={handlePrev}><MdNavigateBefore/></button>
+                        </IconContext.Provider>
+                        <IconContext.Provider value={{size: "1.5rem", color: "green"}}>
+                            {props.groupName} <span className='ms-3'><MdPeople/></span>{activeCount}
+                        </IconContext.Provider>
+                        <IconContext.Provider value={{size: "1.5em", color: "blue"}}>
+                            <button className="btn" onClick={handleNext}><MdNavigateNext/></button>
+                        </IconContext.Provider>
                     </div>
                 <div className="col-2 d-flex justify-content-end">
-                    <button className="btn" onClick={handleClose}><MdClose/></button>
+                    <IconContext.Provider value={{size: "1.5rem", color: "red"}}>
+                        <button className="btn" onClick={handleClose}><MdClose/></button>
+                    </IconContext.Provider>
                 </div>
             </div>
-        </IconContext.Provider>
+        
     )
 }
