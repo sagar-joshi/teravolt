@@ -59,7 +59,7 @@ export function HomePage(props){
             </div>
             <div className='d-flex flex-column align-items-center h-40 justify-content-center'>
                 <div className='m-2'>
-                    <input type="text" placeholder='Type nickname here' value={nickName} onChange={handleNickNameChange}></input>
+                    <input className="nickNameInput" type="text" placeholder='Type nickname here' value={nickName} onChange={handleNickNameChange}></input>
                 </div>
                 <div className='m-2'>
                     <button className='btn btn-primary me-2' onClick={handleEnterOneOneChatRoom}>1 on 1 Chat</button>
