@@ -3,6 +3,7 @@ import slide1 from '../images/slide1.webp';
 import slide2 from '../images/slide2.webp';
 import { ax } from '../utils/axios.config';
 import { ChatBox } from './ChatBox';
+import './HomePage.css';
 
 export function HomePage(props){
     const [nickName, setNickName] = useState('');
