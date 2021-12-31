@@ -44,9 +44,9 @@ export function ChatBox(props){
         if(!forAuthenticatedUsers)
             newSocket.emit("roomMem:in", {roomId: groupId});
         
-        return () => {
-            newSocket.close()
-        };
+        // return () => {
+        //     newSocket.close()
+        // };
     },[groupId, forAuthenticatedUsers])
 
     useEffect(()=>{
