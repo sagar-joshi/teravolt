@@ -10,6 +10,7 @@ export function InputArea(props){
         setText(e.target.value);
     };
     const handleSend = () => {
+        document.getElementById("text-inp").focus();
         if(props.forAuthenticatedUsers){
             ax.post('/message/send', {
                 text: text,
@@ -35,7 +36,7 @@ export function InputArea(props){
     return (
         <IconContext.Provider value={{size:"2rem", color:"blue"}}>
         <div className="InputArea d-flex flex-row h-100 ps-2 pe-2">
-            <input 
+            <input id="text-inp"
             className="inputArea w-90 border border-2 rounded-pill" type="text" placeholder="Enter text here" autoFocus="autofocus"
             value={text} onChange={handleChange} onKeyPress={handleKeyPress}/>
             <button className="btn w-10 p-0 d-flex justify-content-center align-items-center" onClick={handleSend}><MdSend/></button>
