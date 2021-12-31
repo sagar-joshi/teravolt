@@ -1,0 +1,4 @@
+.MessageArea{
+    overflow-wrap: anywhere;
+    overflow-y: auto;
+}
