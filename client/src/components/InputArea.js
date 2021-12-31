@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { ax } from "../utils/axios.config";
+import { MdSend } from 'react-icons/md';
+import { IconContext } from "react-icons/lib";
 
 export function InputArea(props){
     const [text, setText] = useState("");
@@ -30,11 +32,13 @@ export function InputArea(props){
         }
     }
     return (
-        <div className="InputArea d-flex flex-row h-100 ms-2 me-2">
+        <IconContext.Provider value={{size:"2rem", color:"blue"}}>
+        <div className="InputArea d-flex flex-row h-100 ps-2 pe-2">
             <input 
-            className="w-100 border" type="text" placeholder="Enter text here" autoFocus="autofocus"
+            className="w-90 border border-2 border-primary rounded-pill" type="text" placeholder="Enter text here" autoFocus="autofocus"
             value={text} onChange={handleChange} onKeyPress={handleKeyPress}/>
-            <button className="btn border" onClick={handleSend}>Send</button>
+            <button className="btn w-10 p-0 d-flex justify-content-center align-items-center" onClick={handleSend}><MdSend/></button>
         </div>
+        </IconContext.Provider>
     );
 }

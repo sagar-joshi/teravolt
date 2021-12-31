@@ -1,3 +1,6 @@
+import { IconContext } from 'react-icons/lib';
+import { MdClose, MdNavigateNext, MdNavigateBefore } from 'react-icons/md';
+
 export function ChatHeader(props){
     const handleClose = ()=>{
         if(props.forAuthenticatedUsers)
@@ -7,15 +10,28 @@ export function ChatHeader(props){
 
         props.closeChatBox();
     }
+
+    const handleNext = ()=>{
+
+    }
+
+    const handlePrev = ()=>{
+
+    }
+
     const activeCount = props.forAuthenticatedUsers?"":`(${props.activeMem} online)`;
     return (
-        <div className="ChatHeader h-100 row d-flex flex-row align-items-center card">
-            <div className="col-10 d-flex justify-content-center">
-                {`${props.groupName} ${activeCount}`}
+        <IconContext.Provider value={{size: "1.5em"}}>
+            <div className="ChatHeader h-100 row d-flex flex-row align-items-center card">
+                    <div className="col-10 d-flex justify-content-center align-items-center">
+                        <button className="btn" onClick={handlePrev}><MdNavigateBefore/></button>
+                        {`${props.groupName} ${activeCount}`}
+                        <button className="btn" onClick={handleNext}><MdNavigateNext/></button>
+                    </div>
+                <div className="col-2 d-flex justify-content-end">
+                    <button className="btn" onClick={handleClose}><MdClose/></button>
+                </div>
             </div>
-            <div className="col-2 d-flex justify-content-end">
-                <button className="btn btn-close" onClick={handleClose}></button>
-            </div>
-        </div>
+        </IconContext.Provider>
     )
 }
