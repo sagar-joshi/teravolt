@@ -37,8 +37,12 @@ export function HomePage(props){
         setChatRoomId(null);
     }
 
+    const updateChatRoomId = (id) => {
+        setChatRoomId(id);
+    }
+
     return(
-        (chatRoomId !== null)?<ChatBox groupId={chatRoomId} type="unAuthenticated" closeChatBox={closeChatBox} nickName={nickName}/>:
+        (chatRoomId !== null)?<ChatBox groupId={chatRoomId} type="unAuthenticated" updateChatRoomId={updateChatRoomId} closeChatBox={closeChatBox} nickName={nickName}/>:
         <div className='h-100'>
             <div id="carouselExampleInterval" className="carousel slide h-60" data-bs-ride="carousel">
                 <div className="carousel-inner h-100">

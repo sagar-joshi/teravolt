@@ -104,7 +104,7 @@ export function ChatBox(props){
     },[userId, groupId, forAuthenticatedUsers]);
     return (
         <div className="ChatBox h-100">
-            <div className="h-6"><ChatHeader groupId = {groupId} groupName={groupName.current} activeMem={activeMem} socket={socket} forAuthenticatedUsers={forAuthenticatedUsers} closeChatBox={props.closeChatBox}/></div>
+            <div className="h-6"><ChatHeader groupId = {groupId} groupName={groupName.current} activeMem={activeMem} socket={socket} forAuthenticatedUsers={forAuthenticatedUsers} updateChatRoomId={props.updateChatRoomId} closeChatBox={props.closeChatBox}/></div>
             <div className="h-88"><MessageArea msgList={msgList}/></div>
             <div className="h-6"><InputArea groupId={groupId} socket={socket} forAuthenticatedUsers={forAuthenticatedUsers} nickName={props.nickName?props.nickName:null}/></div>
         </div>

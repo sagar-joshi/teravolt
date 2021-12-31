@@ -48,7 +48,7 @@ export function Header(props){
                         </div>
     const rightCorner = auth.user?<Settings/>:  <div className='d-flex h-100'>
                                                     <div className='ms-1 me-1 h-100'><Signup updateToast={updateToast}/></div>
-                                                    <div className='ms-1 me-1' h-100><Login/></div>
+                                                    <div className='ms-1 me-1 h-100'><Login/></div>
                                                 </div>
 
     return (

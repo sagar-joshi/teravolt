@@ -1,22 +1,48 @@
 import { IconContext } from 'react-icons/lib';
+import {ax} from '../utils/axios.config.js';
 import { MdClose, MdNavigateNext, MdNavigateBefore, MdPeople } from 'react-icons/md';
 
 export function ChatHeader(props){
-    const handleClose = ()=>{
+    const decrementActiveMemCount = ()=>{
         if(props.forAuthenticatedUsers)
             props.socket.emit("groupMem:out", {groupId: props.groupId});
         if(!props.forAuthenticatedUsers)
             props.socket.emit("roomMem:out", {roomId: props.groupId});
+    }
 
+    const handleClose = ()=>{
+        decrementActiveMemCount();
         props.closeChatBox();
     }
 
     const handleNext = ()=>{
-
+        ax.post('/room/nextEmptyRoomId', {
+            roomId: props.groupId,
+        })
+        .then((res) => {
+            if(props.groupId !== res.data.roomId){
+                decrementActiveMemCount();
+                props.updateChatRoomId(res.data.roomId);
+            }
+        })
+        .catch((err) => {
+            console.log(err);
+        })
     }
 
     const handlePrev = ()=>{
-
+        ax.post('/room/prevEmptyRoomId', {
+            roomId: props.groupId,
+        })
+        .then((res) => {
+            if(props.groupId !== res.data.roomId){
+                decrementActiveMemCount();
+                props.updateChatRoomId(res.data.roomId);
+            }
+        })
+        .catch((err) => {
+            console.log(err);
+        })
     }
 
     const activeCount = props.forAuthenticatedUsers?"":`${props.activeMem}`;

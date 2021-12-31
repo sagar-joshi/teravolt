@@ -6,6 +6,8 @@ const router = new Router();
 
 router.post('/', ChatRoomController.getRoom);
 router.post('/emptyRoomId', ChatRoomController.getRoomId);
+router.post('/nextEmptyRoomId', ChatRoomController.getNextRoomId);
+router.post('/prevEmptyRoomId', ChatRoomController.getPrevRoomId);
 
 export function roomMemHandlers(io,socket){
     socket.on("roomMem:in", async (data) => {
