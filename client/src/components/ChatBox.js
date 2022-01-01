@@ -95,6 +95,8 @@ export function ChatBox(props){
         }
         if(forAuthenticatedUsers)
             updateMsgList();
+        if(!forAuthenticatedUsers)
+            setMsgList([]);
     },[userId, groupId, forAuthenticatedUsers]);
     return (
         <div className="ChatBox h-100">
