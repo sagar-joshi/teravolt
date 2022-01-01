@@ -46,6 +46,9 @@
 .bg-blue{
     background-color: aliceblue;
 }
+.zoom-on-hover:hover{
+    transform: scale(2);
+}
 ::-webkit-scrollbar{
     background: white;
     width: 0.5rem;
