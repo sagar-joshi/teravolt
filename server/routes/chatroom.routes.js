@@ -26,10 +26,12 @@ export function roomMemHandlers(io,socket){
     })
     socket.on("disconnect", async ()=> {
         const roomId = map.get(socket.id);
-        map.delete(socket.id);
-        socket.leave(`R${roomId}`);
-        const newCount = await ChatRoomController.decrementMemCount(roomId);
-        io.to(`R${roomId}`).emit("mem:out", {memCount: newCount});
+        if(roomId !== undefined){
+            map.delete(socket.id);
+            socket.leave(`R${roomId}`);
+            const newCount = await ChatRoomController.decrementMemCount(roomId);
+            io.to(`R${roomId}`).emit("mem:out", {memCount: newCount});
+        }
     })
 }
 
