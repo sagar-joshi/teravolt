@@ -20,6 +20,10 @@ export function ChatBox(props){
     const [activeMem, setActiveMem] = useState(0);
     const [groupName, setGroupName] = useState("");
 
+    const focusInput = () => {
+        document.getElementById("text-inp").focus();
+    }
+
     useEffect(() => {
         if(socket != null){
             socket.on("msg:new", (msg)=>{
@@ -100,9 +104,9 @@ export function ChatBox(props){
     },[userId, groupId, forAuthenticatedUsers]);
     return (
         <div className="ChatBox h-100">
-            <div className="h-6"><ChatHeader groupId = {groupId} groupName={groupName} activeMem={activeMem} socket={socket} forAuthenticatedUsers={forAuthenticatedUsers} updateChatRoomId={props.updateChatRoomId} closeChatBox={props.closeChatBox}/></div>
+            <div className="h-6"><ChatHeader groupId = {groupId} groupName={groupName} activeMem={activeMem} socket={socket} forAuthenticatedUsers={forAuthenticatedUsers} focusInput={focusInput} updateChatRoomId={props.updateChatRoomId} closeChatBox={props.closeChatBox}/></div>
             <div className="h-88"><MessageArea msgList={msgList}/></div>
-            <div className="h-6"><InputArea groupId={groupId} socket={socket} forAuthenticatedUsers={forAuthenticatedUsers} nickName={props.nickName?props.nickName:null}/></div>
+            <div className="h-6"><InputArea groupId={groupId} socket={socket} forAuthenticatedUsers={forAuthenticatedUsers} nickName={props.nickName?props.nickName:null} focusInput={focusInput}/></div>
         </div>
     );
 }

@@ -9,8 +9,9 @@ export function InputArea(props){
     const handleChange = (e) => {
         setText(e.target.value);
     };
+
     const handleSend = () => {
-        document.getElementById("text-inp").focus();
+        props.focusInput();
         if(props.forAuthenticatedUsers){
             ax.post('/message/send', {
                 text: text,

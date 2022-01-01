@@ -23,6 +23,7 @@ export function ChatHeader(props){
             if(props.groupId !== res.data.roomId){
                 decrementActiveMemCount();
                 props.updateChatRoomId(res.data.roomId);
+                props.focusInput();
             }
         })
         .catch((err) => {
@@ -38,6 +39,7 @@ export function ChatHeader(props){
             if(props.groupId !== res.data.roomId){
                 decrementActiveMemCount();
                 props.updateChatRoomId(res.data.roomId);
+                props.focusInput();
             }
         })
         .catch((err) => {
