@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useContext } from "react";
+import { useState, useEffect, useContext } from "react";
 import {io} from 'socket.io-client';
 
 import { ChatHeader } from "./ChatHeader.js";
@@ -22,6 +22,14 @@ export function ChatBox(props){
 
     const focusInput = () => {
         document.getElementById("text-inp").focus();
+    }
+
+    const decrementActiveMemCount = ()=>{
+        console.log("dec")
+        if(forAuthenticatedUsers)
+            socket.emit("groupMem:out", {groupId: groupId});
+        if(!forAuthenticatedUsers)
+            socket.emit("roomMem:out", {roomId: groupId});
     }
 
     useEffect(() => {
@@ -104,7 +112,7 @@ export function ChatBox(props){
     },[userId, groupId, forAuthenticatedUsers]);
     return (
         <div className="ChatBox h-100">
-            <div className="h-6"><ChatHeader groupId = {groupId} groupName={groupName} activeMem={activeMem} socket={socket} forAuthenticatedUsers={forAuthenticatedUsers} focusInput={focusInput} updateChatRoomId={props.updateChatRoomId} closeChatBox={props.closeChatBox}/></div>
+            <div className="h-6"><ChatHeader groupId = {groupId} groupName={groupName} activeMem={activeMem} socket={socket} forAuthenticatedUsers={forAuthenticatedUsers} focusInput={focusInput} updateChatRoomId={props.updateChatRoomId} decrementActiveMemCount={decrementActiveMemCount} closeChatBox={props.closeChatBox}/></div>
             <div className="h-88"><MessageArea msgList={msgList}/></div>
             <div className="h-6"><InputArea groupId={groupId} socket={socket} forAuthenticatedUsers={forAuthenticatedUsers} nickName={props.nickName?props.nickName:null} focusInput={focusInput}/></div>
         </div>

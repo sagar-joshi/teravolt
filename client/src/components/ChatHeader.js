@@ -3,15 +3,9 @@ import {ax} from '../utils/axios.config.js';
 import { MdClose, MdNavigateNext, MdNavigateBefore, MdPeople } from 'react-icons/md';
 
 export function ChatHeader(props){
-    const decrementActiveMemCount = ()=>{
-        if(props.forAuthenticatedUsers)
-            props.socket.emit("groupMem:out", {groupId: props.groupId});
-        if(!props.forAuthenticatedUsers)
-            props.socket.emit("roomMem:out", {roomId: props.groupId});
-    }
 
     const handleClose = ()=>{
-        decrementActiveMemCount();
+        props.decrementActiveMemCount();
         props.closeChatBox();
     }
 
@@ -21,7 +15,7 @@ export function ChatHeader(props){
         })
         .then((res) => {
             if(props.groupId !== res.data.roomId){
-                decrementActiveMemCount();
+                props.decrementActiveMemCount();
                 props.updateChatRoomId(res.data.roomId);
                 props.focusInput();
             }
@@ -37,7 +31,7 @@ export function ChatHeader(props){
         })
         .then((res) => {
             if(props.groupId !== res.data.roomId){
-                decrementActiveMemCount();
+                props.decrementActiveMemCount();
                 props.updateChatRoomId(res.data.roomId);
                 props.focusInput();
             }
