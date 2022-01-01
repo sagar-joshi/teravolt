@@ -40,7 +40,7 @@ export function InputArea(props){
             <input id="text-inp"
             className="inputArea w-90 border border-2 rounded-pill" type="text" placeholder="Enter text here" autoFocus="autofocus"
             value={text} onChange={handleChange} onKeyPress={handleKeyPress}/>
-            <button className="btn w-10 p-0 d-flex justify-content-center align-items-center" onClick={handleSend}><MdSend className="zoom-on-hover"/></button>
+            <button className="btn w-10 p-0 d-flex justify-content-center align-items-center" onClick={handleSend}><MdSend/></button>
         </div>
         </IconContext.Provider>
     );

@@ -51,10 +51,10 @@ export function ChatBox(props){
         let newSocket = null;
         if(socket === null){
             newSocket = io(socketUrl);
-                setSocket(newSocket);
+            setSocket(newSocket);
         }else if (!socket.connected){
             newSocket = io(socketUrl);
-                setSocket(newSocket);
+            setSocket(newSocket);
         }else{
             if(forAuthenticatedUsers)
                 socket.emit("groupMem:in", {groupId: groupId});
