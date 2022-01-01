@@ -18,7 +18,7 @@ export function ChatBox(props){
     const [msgList, setMsgList] = useState([]);
     const [socket, setSocket] = useState(null);
     const [activeMem, setActiveMem] = useState(0);
-    const groupName = useRef("");
+    const [groupName, setGroupName] = useState("");
 
     useEffect(() => {
         if(socket != null){
@@ -37,36 +37,43 @@ export function ChatBox(props){
 
     useEffect(()=>{
         const socketUrl = process.env.REACT_APP_SOCKET_URL || "http://localhost:5000/";
-        const newSocket = io(socketUrl);
-        setSocket(newSocket);
-        if(forAuthenticatedUsers)
-            newSocket.emit("groupMem:in", {groupId: groupId});
-        if(!forAuthenticatedUsers)
-            newSocket.emit("roomMem:in", {roomId: groupId});
-        
-        // return () => {
-        //     newSocket.close()
-        // };
+        let newSocket = null;
+        if(socket === null){
+            newSocket = io(socketUrl);
+                setSocket(newSocket);
+        }else if (!socket.connected){
+            newSocket = io(socketUrl);
+                setSocket(newSocket);
+        }else{
+            if(forAuthenticatedUsers)
+                socket.emit("groupMem:in", {groupId: groupId});
+            if(!forAuthenticatedUsers)
+                socket.emit("roomMem:in", {roomId: groupId});
+        }
+        if(newSocket !== null){
+            if(forAuthenticatedUsers)
+                newSocket.emit("groupMem:in", {groupId: groupId});
+            if(!forAuthenticatedUsers)
+                newSocket.emit("roomMem:in", {roomId: groupId});
+        }   
     },[groupId, forAuthenticatedUsers])
 
     useEffect(()=>{
-        const setGroupName = ()=>{
+        const updateGroupName = ()=>{
             ax.post('/group/getByGroupId',{
                 groupId: groupId
             })
             .then((res)=>{
-                groupName.current = res.data[0].name;
+                setGroupName(res.data[0].name);
             })
             .catch((err)=>{
                 console.log(err);
             });
         }
-
-
         if(forAuthenticatedUsers)
-            setGroupName();
+            updateGroupName();
         else{
-            groupName.current = `Room ${groupId}`;
+            setGroupName(`Room ${groupId}`);
         }
     },[groupId, forAuthenticatedUsers])
 
@@ -86,13 +93,12 @@ export function ChatBox(props){
                 console.log(err);
             });
         }
-
         if(forAuthenticatedUsers)
             updateMsgList();
     },[userId, groupId, forAuthenticatedUsers]);
     return (
         <div className="ChatBox h-100">
-            <div className="h-6"><ChatHeader groupId = {groupId} groupName={groupName.current} activeMem={activeMem} socket={socket} forAuthenticatedUsers={forAuthenticatedUsers} updateChatRoomId={props.updateChatRoomId} closeChatBox={props.closeChatBox}/></div>
+            <div className="h-6"><ChatHeader groupId = {groupId} groupName={groupName} activeMem={activeMem} socket={socket} forAuthenticatedUsers={forAuthenticatedUsers} updateChatRoomId={props.updateChatRoomId} closeChatBox={props.closeChatBox}/></div>
             <div className="h-88"><MessageArea msgList={msgList}/></div>
             <div className="h-6"><InputArea groupId={groupId} socket={socket} forAuthenticatedUsers={forAuthenticatedUsers} nickName={props.nickName?props.nickName:null}/></div>
         </div>
