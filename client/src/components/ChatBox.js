@@ -25,7 +25,6 @@ export function ChatBox(props){
     }
 
     const decrementActiveMemCount = ()=>{
-        console.log("dec")
         if(forAuthenticatedUsers)
             socket.emit("groupMem:out", {groupId: groupId});
         if(!forAuthenticatedUsers)
