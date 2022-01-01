@@ -12,13 +12,14 @@ router.post('/prevEmptyRoomId', ChatRoomController.getPrevRoomId);
 export function roomMemHandlers(io,socket){
     socket.on("roomMem:in", async (data) => {
         socket.join(`R${data.roomId}`);
-        await ChatRoomController.incrementMemCount(data.roomId);
-        io.to(`R${data.roomId}`).emit("mem:in");
+        const newCount = await ChatRoomController.incrementMemCount(data.roomId);
+        io.to(`R${data.roomId}`).emit("mem:in", {memCount: newCount});
     })
     socket.on("roomMem:out", async (data) => {
-        io.to(`R${data.roomId}`).emit("mem:out");
         socket.leave(`R${data.roomId}`);
-        await ChatRoomController.decrementMemCount(data.roomId);
+        const newCount = await ChatRoomController.decrementMemCount(data.roomId);
+        io.to(`R${data.roomId}`).emit("mem:out", {memCount: newCount});
+        
     })
 }
 

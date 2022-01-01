@@ -3,7 +3,8 @@ import { insertRoom, updateRoom, findEmptyRoomId, findRoomById, findNextRoomId, 
 export async function incrementMemCount(roomId){
     try{
         const room = await findRoomById(roomId);
-        updateRoom(roomId, room.member_count + 1);
+        await updateRoom(roomId, room.member_count + 1);
+        return (room.member_count +1);
     }
     catch(err){
         console.log(err);   //to be fixed later
@@ -13,7 +14,8 @@ export async function incrementMemCount(roomId){
 export async function decrementMemCount(roomId){
     try{
         const room = await findRoomById(roomId);
-        updateRoom(roomId, room.member_count - 1);
+        await updateRoom(roomId, room.member_count - 1);
+        return (room.member_count -1);
     }
     catch(err){
         console.log(err);   //to be fixed later

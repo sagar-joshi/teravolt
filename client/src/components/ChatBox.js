@@ -26,11 +26,11 @@ export function ChatBox(props){
                 const newMsg = {name: msg.firstName +" "+ msg.lastName, msg: msg.text, self:msg.sender_id===null?msg.firstName===props.nickName:msg.sender_id===userId };
                 setMsgList(msgList => [...msgList, newMsg]);
             })
-            socket.on("mem:in", ()=>{
-                setActiveMem(activeMem=>(activeMem+1));
+            socket.on("mem:in", (data)=>{
+                setActiveMem(data.memCount);
             });
-            socket.on("mem:out", ()=>{
-                setActiveMem(activeMem=>(activeMem -1));
+            socket.on("mem:out", (data)=>{
+                setActiveMem(data.memCount);
             });
         }
     },[socket, userId, props.nickName])
@@ -62,23 +62,11 @@ export function ChatBox(props){
             });
         }
 
-        const updateActiveCount = () => {
-            ax.post('/room',{
-                roomId: groupId
-            })
-            .then((res)=>{
-                setActiveMem(res.data.member_count);
-            })
-            .catch((err)=>{
-                console.log(err);
-            });
-        }
 
         if(forAuthenticatedUsers)
             setGroupName();
         else{
             groupName.current = `Room ${groupId}`;
-            updateActiveCount();
         }
     },[groupId, forAuthenticatedUsers])
 
@@ -110,3 +98,4 @@ export function ChatBox(props){
         </div>
     );
 }
+
