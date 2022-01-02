@@ -47,7 +47,7 @@ export async function findRoomById(roomId){
 export async function findNextRoomId(roomId){
     const room = await findRoomById(roomId);
     const maxMembers = room.max_members;
-    const query = "SELECT * FROM `chat_rooms` WHERE `room_id` > ? AND `max_members` = ? LIMIT 1";
+    const query = "SELECT * FROM `chat_rooms` WHERE `room_id` > ? AND `max_members` = ? AND `member_count` < `max_members` LIMIT 1";
     const values = [roomId, maxMembers];
     try{
         const mysqlConnection = await mysql.createConnection(dbInfo);
@@ -66,7 +66,7 @@ export async function findNextRoomId(roomId){
 export async function findPrevRoomId(roomId){
     const room = await findRoomById(roomId);
     const maxMembers = room.max_members;
-    const query = "SELECT * FROM `chat_rooms` WHERE `room_id` < ? AND `max_members` = ? ORDER BY `room_id` DESC LIMIT 1";
+    const query = "SELECT * FROM `chat_rooms` WHERE `room_id` < ? AND `max_members` = ? AND `member_count` < `max_members` ORDER BY `room_id` DESC LIMIT 1";
     const values = [roomId, maxMembers];
     try{
         const mysqlConnection = await mysql.createConnection(dbInfo);
