@@ -65,7 +65,7 @@ export function HomePage(props){
             <div className='d-flex flex-column align-items-center h-40 '>
                 <h5 className='color-grey'>Dont want to register ?</h5>
                 <div className='m-2'>
-                    <input className="nickNameInput" type="text" placeholder='    Type nickname here' value={nickName} onChange={handleNickNameChange}></input>
+                    <input className="nickNameInput" type="text" placeholder='Type nickname here' value={nickName} onChange={handleNickNameChange}></input>
                 </div>
                 <p className='color-grey'>and start chatting with random people</p>
                 <div className='m-2'>
