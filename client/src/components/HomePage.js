@@ -67,7 +67,7 @@ export function HomePage(props){
                 <div className='m-2'>
                     <input className="nickNameInput" type="text" placeholder='    Type nickname here' value={nickName} onChange={handleNickNameChange}></input>
                 </div>
-                <h8 className='color-grey'>and start chatting with random people</h8>
+                <p className='color-grey'>and start chatting with random people</p>
                 <div className='m-2'>
                     <button id='btn-1-on-1-chat' className='btn btn-primary me-2' onClick={handleEnterOneOneChatRoom}>1 on 1 Chat</button>
                     <button id='btn-group-chat' className='btn btn-primary ms-2' onClick={handleEnterGroupChatRoom}>Group Chat</button>
